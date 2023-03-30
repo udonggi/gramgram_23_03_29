@@ -141,6 +141,8 @@ public class MemberControllerTests {
                 .andExpect(handler().handlerType(MemberController.class))
                 .andExpect(handler().methodName("join"))
                 .andExpect(status().is4xxClientError());
+
+
     }
     @Test
     @DisplayName("로그인 폼")
