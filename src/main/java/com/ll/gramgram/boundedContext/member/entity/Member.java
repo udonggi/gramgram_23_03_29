@@ -22,7 +22,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class) //@CreatedDate, @LastModifiedDate 작동하게 허용
 @ToString
 @Entity
 @Getter
@@ -30,9 +30,9 @@ public class Member {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @CreatedDate
+    @CreatedDate // 아래 칼럼에는 값이 자동으로 들어간다.(INSERT 할 때)
     private LocalDateTime createDate;
-    @LastModifiedDate
+    @LastModifiedDate // 아래 칼럼에는 값이 자동으로 들어간다.(UPDATE 할 때 마다)
     private LocalDateTime modifyDate;
 
     @Column(unique = true)

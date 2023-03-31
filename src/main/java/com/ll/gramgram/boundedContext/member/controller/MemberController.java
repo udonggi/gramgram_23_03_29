@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+
 import org.springframework.security.access.prepost.PreAuthorize;
 
 
@@ -50,5 +51,11 @@ public class MemberController {
     @GetMapping("/login")
     public String showLogin() {
         return "usr/member/login";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/me")
+    public String showMe() {
+        return "usr/member/me";
     }
 }
