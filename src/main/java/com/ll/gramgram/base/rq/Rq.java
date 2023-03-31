@@ -41,7 +41,7 @@ public class Rq {
     }
 
     // 로그인 되어 있는지 체크
-    public boolean isLogined() {
+    public boolean isLogin() {
         return user != null;
     }
 
