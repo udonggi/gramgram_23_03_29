@@ -4,6 +4,7 @@ package com.ll.gramgram.boundedContext.member.controller;
 import com.ll.gramgram.boundedContext.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,8 @@ import lombok.Getter;
 
 
 import org.springframework.security.access.prepost.PreAuthorize;
+
+import java.security.Principal;
 
 
 @Controller
@@ -55,7 +58,8 @@ public class MemberController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/me")
-    public String showMe() {
+    public String showMe(Model model, Principal principal) {
+        model.addAttribute("loginedMember", memberService.findByUsername(principal.getName()).orElseThrow()); //여기는 로그인 후 들어가니 if문 필요 없다.
         return "usr/member/me";
     }
 }
