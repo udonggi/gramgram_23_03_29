@@ -58,8 +58,7 @@ public class MemberController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/me")
-    public String showMe(Model model, Principal principal) {
-        model.addAttribute("loginedMember", memberService.findByUsername(principal.getName()).orElseThrow()); //여기는 로그인 후 들어가니 if문 필요 없다.
+    public String showMe() {
         return "usr/member/me";
     }
 }

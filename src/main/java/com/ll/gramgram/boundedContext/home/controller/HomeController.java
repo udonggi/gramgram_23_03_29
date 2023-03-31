@@ -18,12 +18,10 @@ public class HomeController {
     private final MemberService memberService;
 
     @GetMapping("/")
-    public String showMain(Model model, Principal principal) {
-        if (principal != null) {
-            model.addAttribute("loginedMember", memberService.findByUsername(principal.getName()).orElseThrow());
-        }
+    public String showMain() {
         return "usr/home/main";
     }
+
     @GetMapping("/debugSession")
     @ResponseBody
     public String showDebugSession(HttpSession session) {
