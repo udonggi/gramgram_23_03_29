@@ -2,10 +2,6 @@ package com.ll.gramgram.boundedContext.member.entity;
 
 import com.ll.gramgram.boundedContext.instaMember.entity.InstaMember;
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -15,7 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;

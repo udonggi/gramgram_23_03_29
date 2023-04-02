@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
-import java.net.http.HttpResponse;
 import java.util.Date;
 
 @Component
@@ -36,7 +35,7 @@ public class Rq {
         // 현재 로그인한 회원의 인증정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(authentication.getPrincipal() instanceof User) {
+        if (authentication.getPrincipal() instanceof User) {
             this.user = (User) authentication.getPrincipal();
         } else {
             this.user = null;
@@ -56,10 +55,10 @@ public class Rq {
 
     // 로그인 된 회원의 객체
     public Member getMember() {
-        if(isLogout()) {
+        if (isLogout()) {
             return null;
         }
-        if(member == null) {
+        if (member == null) {
             member = memberService.findByUsername(user.getUsername()).orElseThrow();
         }
         return member;

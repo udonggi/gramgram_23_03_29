@@ -23,7 +23,7 @@ public class InstaMemberService {
 
     @Transactional
     public RsData<InstaMember> connect(Member member, String username, String gender) {
-        if(findByUsername(username).isPresent()) {
+        if (findByUsername(username).isPresent()) {
             return RsData.of("F-1", "해당 인스타그램 아이디는 이미 다른 사용자와 연결되었습니다.");
         }
 
