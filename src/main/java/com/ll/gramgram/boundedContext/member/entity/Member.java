@@ -1,5 +1,6 @@
 package com.ll.gramgram.boundedContext.member.entity;
 
+import com.ll.gramgram.boundedContext.instaMember.entity.InstaMember;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -38,6 +39,10 @@ public class Member {
     @Column(unique = true)
     private String username;
     private String password;
+
+    @OneToOne
+    @Setter
+    private InstaMember instaMember;
 
     public List<? extends GrantedAuthority> getGrantedAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
