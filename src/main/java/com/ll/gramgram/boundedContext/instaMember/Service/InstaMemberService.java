@@ -4,6 +4,7 @@ import com.ll.gramgram.base.rsData.RsData;
 import com.ll.gramgram.boundedContext.instaMember.entity.InstaMember;
 import com.ll.gramgram.boundedContext.instaMember.repository.InstaMemberRepository;
 import com.ll.gramgram.boundedContext.member.entity.Member;
+import com.ll.gramgram.boundedContext.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class InstaMemberService {
-
+    private final MemberService memberService;
     private final InstaMemberRepository instaMemberRepository;
 
     public Optional<InstaMember> findByUsername(String username) {
@@ -29,7 +30,7 @@ public class InstaMemberService {
 
         RsData<InstaMember> instaMemberRsData = create(username, gender);
 
-        member.setInstaMember(instaMemberRsData.getData());
+        memberService.updateInstaMember(member, instaMemberRsData.getData());
 
         return instaMemberRsData;
     }
