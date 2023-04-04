@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -20,8 +22,8 @@ public class LikeablePersonService {
 
 
     @Transactional
-    public RsData<LikeablePerson> create(Member member, String username, int attractiveTypeCode) {
-        InstaMember instaMember = instaMemberService.findByUsernameOrCreate(username);
+    public RsData<LikeablePerson> like(Member member, String username, int attractiveTypeCode) {
+        InstaMember instaMember = instaMemberService.findByUsernameOrCreate(username).getData();
 
         if(member.getInstaMember().getUsername().equals(username)) {
             return RsData.of("F-1", "자기 자신은 좋아요 할 수 없습니다.");
@@ -39,5 +41,10 @@ public class LikeablePersonService {
         likeablePersonRepository.save(likeablePerson);
 
         return RsData.of("S-1", "입력하신 인스타유저(%s)를 호감상대로 등록되었습니다.".formatted(username), likeablePerson);
+    }
+
+
+    public List<LikeablePerson> findByFromInstaMemberId(Long fromInstaMemberId) {
+        return likeablePersonRepository.findByFromInstaMemberId(fromInstaMemberId);
     }
 }

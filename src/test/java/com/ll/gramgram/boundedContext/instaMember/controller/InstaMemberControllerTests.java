@@ -1,4 +1,4 @@
-package com.ll.gramgram.boundedContext.member.controller;
+package com.ll.gramgram.boundedContext.instaMember.controller;
 
 
 import com.ll.gramgram.boundedContext.instaMember.Service.InstaMemberService;
@@ -100,9 +100,38 @@ public class InstaMemberControllerTests {
                 .andExpect(handler().handlerType(InstaMemberController.class))
                 .andExpect(handler().methodName("connect"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlPattern("/pop**"));
+                .andExpect(redirectedUrlPattern("/likeablePerson/add**"));
 
         InstaMember instaMember = instaMemberService.findByUsername("abc123").orElse(null);
+
+        Member member = memberService.findByUsername("user1").orElseThrow();
+
+        assertThat(member.getInstaMember()).isEqualTo(instaMember);
+    }
+
+    @Test
+    @DisplayName("인스타 아이디 입력, 이미 우리 시스템에 성별 U 로 등록되어 있는 경우")
+    @WithUserDetails("user1")
+    void t004() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(post("/instaMember/connect")
+                        .with(csrf()) // CSRF 키 생성
+                        .param("username", "insta_user100")
+                        .param("gender", "M")
+                )
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(handler().handlerType(InstaMemberController.class))
+                .andExpect(handler().methodName("connect"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlPattern("/likeablePerson/add**"));
+
+        InstaMember instaMember = instaMemberService.findByUsername("insta_user100").orElse(null);
+
+        assertThat(instaMember.getGender()).isEqualTo("M");
 
         Member member = memberService.findByUsername("user1").orElseThrow();
 
