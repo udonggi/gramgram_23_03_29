@@ -19,8 +19,9 @@ public class LikeablePersonService {
     private final InstaMemberService instaMemberService;
 
 
+    @Transactional
     public RsData<LikeablePerson> create(Member member, String username, int attractiveTypeCode) {
-        InstaMember instaMember = instaMemberService.findByUsername(username).orElseThrow();
+        InstaMember instaMember = instaMemberService.findByUsernameOrCreate(username);
 
         if(member.getInstaMember().getUsername().equals(username)) {
             return RsData.of("F-1", "자기 자신은 좋아요 할 수 없습니다.");
